@@ -1,0 +1,34 @@
+.drifting-clouds {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  /* Lets the keyframes use 100cqw (this box's width). */
+  container-type: size;
+}
+
+.drifting-clouds__cloud {
+  position: absolute;
+  left: 0;
+  will-change: transform;
+  animation-name: cloud-drift;
+  animation-timing-function: linear;
+  animation-fill-mode: both;
+}
+
+/* From fully off the left edge to fully off the right edge. The 40% margin
+   covers the cloud's ragged edges, which spill past its box. */
+@keyframes cloud-drift {
+  from {
+    transform: translateX(calc(var(--cloud-width) * -1.4));
+  }
+  to {
+    transform: translateX(calc(100cqw + var(--cloud-width) * 0.4));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .drifting-clouds__cloud {
+    animation-play-state: paused;
+  }
+}
